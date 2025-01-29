@@ -34,6 +34,21 @@ Practicing your keyboard shortcuts. Try out the following as you work on this ex
 # Implementation
 
 ```{r}
+library(tidyverse)
+my_data <- read_csv("../../data/raw/weather.csv")
+View(my_data)
+```
+```{r}
+library(lubridate)
+weather_clean <- my_data %>% 
+  mutate(PrecipYr = na_if(PrecipYr, 99999)) %>% 
+  mutate(raw_dateInYear = mdy(date))%>%
+  mutate(dateInYear = yday(raw_dateInYear))
+#  mutate(month_name = month.abb(Month))
 
+```
+
+```{r}
+write_csv(weather_clean, "../../data/clean/weather_clean.csv")
 ```
 
